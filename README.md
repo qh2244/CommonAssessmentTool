@@ -16,14 +16,14 @@ To run this project, ensure that the following tools are installed on your syste
 * SQLite
 
 ### API Endpoints
-1. POST /clients/predictions
+1. POST /clients/predictions  
 This endpoint accepts input data and returns a prediction result by calling the interpret_and_calculate logic.
 
 Request:
 * Method: POST
 * URL: /clients/predictions
 
-2. POST /clients/add
+2. POST /clients/add  
 This endpoint adds the input data to the SQLite database and returns the newly created client_id along with the prediction result.
 
 Request:
@@ -31,14 +31,14 @@ Request:
 * URL: /clients/add
 * Body: Same as /clients/predictions
 
-3. GET /clients/{client_id}
+3. GET /clients/{client_id}  
 This endpoint retrieves a client's information by client_id from the database.
 
 Request:
 * Method: GET
 * URL: /clients/{client_id}
 
-4. PUT /clients/update/{client_id}
+4. PUT /clients/update/{client_id}  
 This endpoint updates the client information for the provided client_id using the input data.
 
 Request:
@@ -47,7 +47,7 @@ Request:
 * URL: /clients/update/{client_id}
 * Body: Same as /clients/predictions
 
-5. DELETE /clients/delete/{client_id}
+5. DELETE /clients/delete/{client_id}  
 This endpoint deletes the client record from the database using the provided client_id.
 
 Request:
