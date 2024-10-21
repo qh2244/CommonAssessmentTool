@@ -64,7 +64,7 @@ async def get_client(client_id: int):
         raise HTTPException(status_code=404, detail="Client not found")
     return dict(client)
 
-# update client info by id
+# update clients info by id
 @router.put("/update/{client_id}")
 async def update_client(client_id: int, data: PredictionInput):
     conn = get_db_connection()
