@@ -1,7 +1,14 @@
+"""
+Main application entry point for the FastAPI service.
+
+This module configures the FastAPI app, including routers and middleware,
+and initializes the database during the startup event.
+"""
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.clients.router import router as clients_router
-from app.clients.database import create_clients_table  # input from database.py
+from app.clients.database import create_clients_table
 
 app = FastAPI()
 
@@ -18,7 +25,8 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def startup_event():
-    create_clients_table()
-
-if __name__ == "__main__":
+    """
+    Startup event handler that initializes the database by creating
+    the necessary clients table if it doesn't already exist.
+    """
     create_clients_table()
