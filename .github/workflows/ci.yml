@@ -27,14 +27,14 @@ jobs:
       # 3. Install dependencies
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip setuptools
           pip install -r requirements.txt
 
       # 4. Run linter (pylint)
       - name: Run pylint
         run: |
           pip install pylint
-          pylint app/ --exit-zero  # Not strict, warnings will not fail CI
+          pylint app/ --exit-zero
 
       # 5. Run tests (pytest)
       - name: Run tests
