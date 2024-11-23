@@ -31,7 +31,9 @@ jobs:
 
       # Run tests with pytest
       - name: Run tests
-        run: python3  tests/test.py
+        run: |
+          export PYTHONPATH=.
+          python3 tests/test.py
 
       # Run linting with pylint
       - name: Run pylint
