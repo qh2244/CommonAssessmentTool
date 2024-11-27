@@ -1,29 +1,26 @@
-# Use the official Python image
-FROM python:3.10-slim
+# # Use the official Python image
+# FROM python:3.10-slim
 
-# Set the working directory inside the container
-WORKDIR /app
+# # Set the working directory inside the container
+# WORKDIR /app
 
-# Install system dependencies required for psutil and other packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc \
-    python3-dev \
-    && rm -rf /var/lib/apt/lists/*
+# # Copy the requirements file from the root directory
+# COPY requirements.txt ./
 
-# Copy the requirements file to the container
-COPY requirements.txt .
+# # Install dependencies
+# RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# # Copy the entire `app` directory into the container
+# COPY app ./app
 
-# Copy all project files to the container
-COPY . .
+# # Copy other project files (e.g., database, tests, etc.)
+# COPY . .
 
-# Set PYTHONPATH to include the /app directory
-ENV PYTHONPATH=/app
+# # Set PYTHONPATH to include the `/app` directory
+# ENV PYTHONPATH=/app
 
-# Expose the port your app will run on
-EXPOSE 8000
+# # Expose the port your app will run on
+# EXPOSE 8000
 
-# Command to run the application
-CMD ["python", "main.py"]
+# # Command to run the application
+# CMD ["python", "app/main.py"]
