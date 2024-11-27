@@ -9,34 +9,55 @@ on:
       - main
 
 jobs:
-  test-and-lint:
+  test-lint-and-docker:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
+      # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Setup Python environment
+      # Step 2: Setup Python environment
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      # Install dependencies from both requirements.txt files
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install -r app/requirements.txt
 
-      # Run tests with pytest
+      # Step 4: Run tests with pytest
       - name: Run tests
         run: |
           export PYTHONPATH=.
-          python3 tests/test.py
+          pytest tests/
 
-      # Run linting with pylint
+      # Step 5: Run linting with pylint
       - name: Run pylint
         run: |
-          pylint app/ || exit 0 # Allow linting to fail without failing the pipeline
+          pylint app/ || echo "Linting completed with issues"
+
+      # Step 6: Build Docker image
+      - name: Build Docker Image
+        run: docker build -t commonassessmenttool .
+
+      # Step 7: Run Docker container
+      - name: Run Docker Container
+        run: docker run -d -p 8000:8000 --name app-container commonassessmenttool
+
+      # Step 8: Test Docker container
+      - name: Test Docker Application
+        run: |
+          sleep 10  # Allow time for the container to start
+          curl http://localhost:8000 || exit 1
+
+      # Step 9: Clean up Docker resources
+      - name: Cleanup
+        if: always()
+        run: |
+          docker stop app-container || true
+          docker rm app-container || true
