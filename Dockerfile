@@ -8,7 +8,8 @@ WORKDIR /app
 COPY requirements.txt app/requirements.txt ./
 
 # Install dependencies from both requirements files
-RUN pip install --no-cache-dir -r requirements.txt -r app/requirements.txt
+RUN pip install -r requirements.txt
+RUN pip install -r app/requirements.txt
 
 # Copy all project files to the container
 COPY . .
