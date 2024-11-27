@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  test-and-lint:
+  test-and-docker:
     runs-on: ubuntu-latest
 
     steps:
@@ -40,3 +40,13 @@ jobs:
       - name: Run pylint
         run: |
           pylint app/ || exit 0 # Allow linting to fail without failing the pipeline
+
+      # Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t commonassessmenttool .
+
+      # Run Docker container
+      - name: Run Docker container
+        run: |
+          docker run -d -p 8000:8000 --name app-container commonassessmenttool
